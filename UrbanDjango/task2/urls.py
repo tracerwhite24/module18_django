@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import cls_temp, fnc_temp
+from . import views
 
 urlpatterns = [
-    path('', cls_temp, name='class'),
-    path('func', fnc_temp, name='func'),
+    path('class', views.cls_temp, name='class'),
+    path('func/', views.fnc_temp, name='func'),
 ]
+
