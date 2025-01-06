@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'task5/styles.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            display: flex;
+            align-items: center;
+        }
+        .form-group {
+            margin-right: 10px;
+        }
+        .form-group input {
+            padding: 8px;
+            width: 150px;
+        }
+        button {
+            padding: 10px 15px;
+        }
+         .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .success {
+            color: green;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Регистрация</h1>
+
+    {% if success %}
+        <p style="color: green;">{{ success }}</p>
+    {% endif %}
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-container">
+            <div class="form-group">
+                <label for="username">Имя пользователя:</label>
+                <input type="text" name="username" id="username" value="{{ request.POST.username|default:'' }}">
+                {% if error and 'username' in error %}
+                    <p class="error">{{ error.username }}</p>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" name="password" id="password">
+                {% if error and 'password' in error %}
+                    <p class="error">{{ error.password }}</p>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="repeat_password">Повторите пароль:</label>
+                <input type="password" name="repeat_password" id="repeat_password">
+                {% if error and 'repeat_password' in error %}
+                    <p class="error">{{ error.repeat_password }}</p>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="age">Возраст:</label>
+                <input type="number" name="age" id="age" value="{{ request.POST.age|default:'' }}">
+                {% if error and 'age' in error %}
+                    <p class="error">{{ error.age }}</p>
+                {% endif %}
+            </div>
+            <button type="submit">Зарегистрироваться</button>
+        </div>
+    </form>
+</body>
+</html>
+
+
+
